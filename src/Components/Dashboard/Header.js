@@ -1,27 +1,29 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 
-import HeaderButton from './HeaderButton';
-import classes from './Header.module.css';
+import HeaderButton from "./HeaderButton";
+import classes from "./Header.module.css";
 
 const Header = (props) => {
+  console.log(props.userName);
   return (
     <Fragment>
       <div className={classes.headercss}>
         <div className={classes.circle}>PD</div>
-          <div className={classes.headerdesc}>
-            <h1>Hey, Praveen!</h1>
-            <p className={classes.borderline}>HOSTING FOCUSED ON YOUR CLIENTS</p>
-            
-            <p className={classes.colorturquoise}>
-                <span>Introducing growth suite, AKA the new (and very improved) version of white </span> 
-                <span>label! Read on the learn more </span>
-            </p>
+        <div className={classes.headerdesc}>
+          <h1>Hey, {props.userName}!</h1>
+          <p className={classes.borderline}>HOSTING FOCUSED ON YOUR CLIENTS</p>
 
-          </div>
-         
+          <p className={classes.colorturquoise}>
+            <span>
+              Introducing growth suite, AKA the new (and very improved) version
+              of white{" "}
+            </span>
+            <span>label! Read on the learn more </span>
+          </p>
+        </div>
+
         <HeaderButton onClick={props.onShowCart} />
       </div>
-      
     </Fragment>
   );
 };

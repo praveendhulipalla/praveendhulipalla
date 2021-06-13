@@ -1,0 +1,12 @@
+.signupForm {
+  background-color: #ecf1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 10px;
+}
+
+.signupForm Form {
+  padding: 10px;
+}
