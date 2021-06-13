@@ -1,0 +1,16 @@
+.button {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-color: rgb(80, 197, 219);
+    background-color: white;
+    width: 19rem;
+    height: 3rem;
+    
+  }
+  
+.button img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
