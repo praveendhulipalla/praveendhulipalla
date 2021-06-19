@@ -1,0 +1,45 @@
+.example {
+    padding: 10px;
+    border-top-right-radius: 25px;
+    background: white;
+     
+  }
+ .ex{
+  background: black;
+  }
+
+  .blockborder {
+    width: 38rem;
+    height: 6rem;
+    margin: 0.5rem;
+    background-color: white;
+    display: inline-block;
+    border-top: rgb(216, 214, 214);
+    border-bottom: rgb(216, 214, 214);
+    border-left: rgb(216, 214, 214);
+    border-right: rgb(216, 214, 214);
+    border-style: dashed;
+  }
+
+  .divdata{
+    display: flex;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgb(216, 214, 214);
+  }
+
+  .circle {
+    width: 25px;
+    height: 25px;
+    line-height: 22px;
+    border: 2px solid rgb(80, 197, 219);
+    border-radius: 50%;
+    font-size: 14px;
+    color: rgb(80, 197, 219);
+    text-align: center;
+    background: white;
+  }
+
+  
+  
+  

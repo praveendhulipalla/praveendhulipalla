@@ -2,25 +2,35 @@ import React, { Fragment } from 'react';
 
 import SelectButton from './SelectButton';
 import classes from './CreateSite.module.css';
+import { Card, Container, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image'
+import SelectOwnerPlan from './SelectOwnerPlan';
+import SetupWordpressSite from './SetupWordpressSite';
+import { Button } from 'bootstrap';
+import LeftArrow from './LeftArrow';
 
 const CreateSite = (props) => {
     return (
-      <Fragment>
-        <div style={{backgroundColor:"gray"}}>
-            <div style={{marginLeft:"30rem", marginTop:"3rem" }}>
+      
+        <div >
+            <div style={{marginBottom:"3rem",marginTop:"3rem",textAlign:"center"}}>
                 <h2>Create a New Site</h2>
             </div>
-            <div style={{marginLeft:"23rem", marginTop:"3rem" }}>
+            <div style={{backgroundColor:"white", paddingLeft:"1rem", paddingRight:"2rem"}}>
                 <div>
-                    <h3> (1) Select owner and plan</h3>
+                    <SelectOwnerPlan />
+                    <SetupWordpressSite />
                 </div>
-                <div className={classes.headercss}>
-                    <SelectButton />
-                    <SelectButton />
+                <div style={{marginTop:"1.5rem", paddingBottom:"2rem"}}>
+                    <span style={{color:"rgb(80, 197, 219)"}}>
+                        <LeftArrow />
+                        Go Back</span>
+                    <span><button className={classes.createbutton}><span>CREATE SITE</span></button></span>
                 </div>
             </div>
+            
         </div>
-      </Fragment>
+      
     );
   };
   

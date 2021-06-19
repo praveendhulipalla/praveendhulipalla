@@ -1,0 +1,30 @@
+.stripeddiv {
+    color: black;
+    display: flex;
+    height: 3rem;
+    background: repeating-linear-gradient(
+      115deg,
+      transparent,
+      transparent 10px,
+      white 15px,
+      white 25px
+    ),
+    linear-gradient(
+      to bottom,
+      rgb(240, 240, 240),
+      rgb(240, 240, 240)
+    )
+  }
+
+  .circle {
+    width: 25px;
+    height: 25px;
+    line-height: 22px;
+    border: 2px solid rgb(80, 197, 219);
+    border-radius: 50%;
+    font-size: 14px;
+    color: rgb(80, 197, 219);
+    text-align: center;
+    background: white;
+  }
+

@@ -6,10 +6,8 @@ import classes from './SelectButton.module.css';
 const Selectbutton = (props) => {
     return (
         <button className={classes.button} >
-          <span>Me</span>
-          <span >
-              <CheckIcon />
-          </span>
+          <span>{props.displayText}</span>
+          <CheckIcon className={classes.arrowdown}/>
         </button>
 )};
 
