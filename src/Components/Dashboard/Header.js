@@ -1,16 +1,19 @@
-import React, { Fragment } from "react";
-
+import React, { Fragment, useContext } from "react";
+import AuthContext from "../../store/auth-context";
 import HeaderButton from "./HeaderButton";
 import classes from "./Header.module.css";
 
 const Header = (props) => {
-  console.log(props.userName);
+  const authCtx = useContext(AuthContext);
+
   return (
     <Fragment>
       <div className={classes.headercss}>
-        <div className={classes.circle}>PD</div>
+        <div className={classes.circle}>
+          {authCtx.currentUser.attributes.name.toUpperCase().slice(0, 2)}
+        </div>
         <div className={classes.headerdesc}>
-          <h1>Hey, {props.userName}!</h1>
+          <h1>Hey, {authCtx.currentUser.attributes.name}!</h1>
           <p className={classes.borderline}>HOSTING FOCUSED ON YOUR CLIENTS</p>
 
           <p className={classes.colorturquoise}>

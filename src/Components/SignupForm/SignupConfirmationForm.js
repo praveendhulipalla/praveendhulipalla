@@ -19,7 +19,7 @@ const SignupConfirmationForm = (props) => {
         verificationCodeInputRef.current.value
       );
       Toast("Success!!", "Verified Successfully", "success");
-      history.push("/signin");
+      history.push("/login");
     } catch (error) {
       Toast("Error!!", error.message, "danger");
     }

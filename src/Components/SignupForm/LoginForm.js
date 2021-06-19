@@ -1,15 +1,12 @@
 import { React, useState, useRef, useContext } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import { Toast } from "../../utils/notifications";
 import { Auth } from "aws-amplify";
 
 const LoginForm = (props) => {
   const [loading, setLoading] = useState(false);
-
-  /////////////
-  const history = useHistory();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -37,9 +34,7 @@ const LoginForm = (props) => {
         expirationTime.toISOString(),
         signInResponse
       );
-      setLoading(false);
       Toast("Success!!", "Login Successfully", "success");
-      history.push("/");
     } catch (error) {
       setLoading(false);
       Toast("Error!!", error.message, "danger");

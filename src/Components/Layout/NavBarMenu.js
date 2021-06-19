@@ -19,7 +19,7 @@ const NavBarMenu = () => {
       Auth.signOut();
       Toast("Success!!", "Logged out successfully!", "success");
       authCtx.logout();
-      history.push("/login");
+      history.push("/");
     } catch (error) {
       Toast("Error!!", error.message, "danger");
     }
@@ -54,7 +54,7 @@ const NavBarMenu = () => {
         </Nav>
         <Nav>
           {!isLoggedIn ? (
-            <Nav.Link href="/auth">Login</Nav.Link>
+            <Nav.Link href="/login">Login</Nav.Link>
           ) : (
             <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
           )}
