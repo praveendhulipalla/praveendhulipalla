@@ -1,28 +1,23 @@
-import React, { Fragment } from 'react';
+import React from "react";
 
-import { Card, Container, Row, Col } from 'react-bootstrap';
-import CreateSite from '../CreateSite/CreateSite';
+import { Container, Row, Col } from "react-bootstrap";
+import CreateSite from "../CreateSite/CreateSite";
 
 const GridLayout = (props) => {
-    return (
-      <Container style={{width:"60%"}}>
-        <Row>
-          
-            <Col>
-                <CreateSite/>
-            </Col>
-            
-        </Row>
-        
-      </Container>
-    );
-  };
-  
-  export default GridLayout;
+  return (
+    <Container style={{ width: "60%" }}>
+      <Row>
+        <Col>
+          <CreateSite />
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
+export default GridLayout;
 
-
- /* <div>
+/* <div>
                     <h3> (1) Select owner and plan</h3>
                 </div>
                 <div>

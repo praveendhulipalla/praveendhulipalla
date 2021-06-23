@@ -3,6 +3,8 @@ import { Form, Button, Spinner } from "react-bootstrap";
 import { Toast } from "../../utils/notifications";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import classes from "./SignupForm.module.css";
 
 const SignupForm = (props) => {
   const [loading, setLoading] = useState(false);
@@ -32,6 +34,7 @@ const SignupForm = (props) => {
         "Password and Confirm Password should be same",
         "danger"
       );
+      setLoading(false);
       return;
     }
 
@@ -59,7 +62,11 @@ const SignupForm = (props) => {
     <Form onSubmit={handleSignUp}>
       <Form.Group controlId="formGridName">
         <Form.Label>Name</Form.Label>
-        <Form.Control placeholder="Name" required={true} ref={nameInputRef} />
+        <Form.Control
+          placeholder="Enter name"
+          required={true}
+          ref={nameInputRef}
+        />
       </Form.Group>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -89,14 +96,17 @@ const SignupForm = (props) => {
       </Form.Group>
       <Form.Group controlId="formGridCompanyName">
         <Form.Label>Company name</Form.Label>
-        <Form.Control placeholder="Company Name" ref={companyNameInputRef} />
+        <Form.Control
+          placeholder="Enter company Name"
+          ref={companyNameInputRef}
+        />
       </Form.Group>
 
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
-          placeholder="Password"
+          placeholder="Enter password"
           required={true}
           ref={passwordInputRef}
         />
@@ -106,26 +116,40 @@ const SignupForm = (props) => {
         </Form.Text>
       </Form.Group>
       <Form.Group controlId="formBasicCnfPassword">
-        <Form.Label>Password</Form.Label>
+        <Form.Label>Confirm Password</Form.Label>
         <Form.Control
           type="password"
-          placeholder="Confirm password"
+          placeholder="Enter confirm password"
           required={true}
           ref={confirmPasswordInputRef}
         />
       </Form.Group>
-      <Button type="submit" variant="primary" disabled={loading}>
-        {loading && (
-          <Spinner
-            as="span"
-            animation="grow"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
-        )}
-        {loading ? "Loading..." : "Signup"}
-      </Button>
+      <hr className="hr" style={{ marginTop: "10%", marginBottom: "5%" }} />
+      <div className={classes.formFooter}>
+        <div>
+          <input type="checkbox" name="agreement" required />
+          <label for="agreement" className="px-2 small">
+            I agree to
+            <Link to="#" className="px-1 small">
+              Flywheel's terms of services
+            </Link>
+          </label>
+        </div>
+        <div>
+          <Button type="submit" variant="success" disabled={loading}>
+            {loading && (
+              <Spinner
+                as="span"
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            )}
+            {loading ? "Loading..." : "NEXT"}
+          </Button>
+        </div>
+      </div>
     </Form>
   );
 };

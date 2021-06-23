@@ -1,11 +1,11 @@
-.createbutton{
-    border-radius: 20px;
-    width: 7rem;
-    height: 41px;
-    background-color: rgb(81, 187, 122);
-    border: none;
-    color: white;
-    font-size: 12px;
-    float: right;
-    margin-right: 2rem;
+.createbutton {
+  border-radius: 20px;
+  width: 7rem;
+  height: 41px;
+  background-color: rgb(81, 187, 122);
+  border: none;
+  color: white;
+  font-size: 12px;
+  float: right;
+  margin-right: 2rem;
 }

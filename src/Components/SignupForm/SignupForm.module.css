@@ -1,12 +1,33 @@
 .signupForm {
-  background-color: #ecf1f1;
+  background-color: white;
   display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100%;
-  padding: 10px;
+  /* padding: 10px; */
+  flex-direction: column;
+  width: 40%;
+  margin: 2% 30% 5% 30%;
 }
 
 .signupForm Form {
   padding: 10px;
+}
+
+.card body title {
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.formFooter a {
+  color: mediumturquoise;
+  text-decoration: none !important;
+}
+
+.formFooter {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.formFooter div:last-child {
+  margin-left: auto;
 }

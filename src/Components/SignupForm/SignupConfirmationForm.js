@@ -1,6 +1,6 @@
 import { React, useRef, useState } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Toast } from "../../utils/notifications";
 import { Auth } from "aws-amplify";
 
@@ -50,19 +50,21 @@ const SignupConfirmationForm = (props) => {
           ref={verificationCodeInputRef}
         />
       </Form.Group>
-      <Button type="submit" variant="primary" disabled={loading}>
-        {loading && (
-          <Spinner
-            as="span"
-            animation="grow"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
-        )}
-        {loading ? "Loading..." : "Verify your account"}
-      </Button>
-      {!loading && <Link to="/Signup">make an account &rarr;</Link>}
+      <hr className="hr" style={{ marginTop: "10%", marginBottom: "5%" }} />
+      <div style={{ float: "right" }}>
+        <Button type="submit" variant="success" disabled={loading}>
+          {loading && (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )}
+          {loading ? "Loading..." : "Verify your account"}
+        </Button>
+      </div>
     </Form>
   );
 };

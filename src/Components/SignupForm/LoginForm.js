@@ -1,14 +1,16 @@
 import { React, useState, useRef, useContext } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import { Toast } from "../../utils/notifications";
 import { Auth } from "aws-amplify";
+import classes from "./SignupForm.module.css";
 
 const LoginForm = (props) => {
   const [loading, setLoading] = useState(false);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const history = useHistory();
 
   const authCtx = useContext(AuthContext);
 
@@ -34,6 +36,7 @@ const LoginForm = (props) => {
         expirationTime.toISOString(),
         signInResponse
       );
+      history.replace("/dashboard");
       Toast("Success!!", "Login Successfully", "success");
     } catch (error) {
       setLoading(false);
@@ -66,19 +69,35 @@ const LoginForm = (props) => {
           ref={passwordInputRef}
         />
       </Form.Group>
-      <Button type="submit" variant="primary" disabled={loading}>
-        {loading && (
-          <Spinner
-            as="span"
-            animation="grow"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
-        )}
-        {loading ? "Loading..." : "Login"}
-      </Button>
-      {!loading && <Link to="/Signup">make an account &rarr;</Link>}
+      <hr className="hr" style={{ marginTop: "10%", marginBottom: "5%" }} />
+      <div className={classes.formFooter}>
+        <div>
+          {!loading && (
+            <Link to="#" className="border-right px-1 small">
+              FORGET YOUR PASSWORD?
+            </Link>
+          )}
+          {!loading && (
+            <Link to="#" className="px-3 small">
+              HELP
+            </Link>
+          )}
+        </div>
+        <div className={classes.formFooterbtn}>
+          <Button type="submit" variant="success" disabled={loading}>
+            {loading && (
+              <Spinner
+                as="span"
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            )}
+            {loading ? "Loading..." : "SIGN IN"}
+          </Button>
+        </div>
+      </div>
     </Form>
   );
 };

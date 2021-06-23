@@ -1,5 +1,4 @@
-import { Redirect } from "react-router";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.css";
 import Layout from "./Components/Layout/Layout";
 import Dashboard from "./Pages/Dashboard";
@@ -15,18 +14,32 @@ function App() {
     <Router>
       <Layout>
         <Switch>
-          <PublicRoute exact path="/login" component={Login} />
-          <PublicRoute exact path="/signup" component={Signup} />
+          {/* <PublicRoute exact path="/home" restricted={false} component={Home} /> */}
           <PublicRoute
             exact
+            path="/login"
+            restricted={true}
+            component={Login}
+          />
+          <PublicRoute
+            exact
+            path="/signup"
+            restricted={true}
+            component={Signup}
+          />
+          <PublicRoute
+            exact
+            restricted={true}
             path="/confirmation"
             component={SignupConfirmation}
           />
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
-          <Route path="*">
+          {/*
+            * TODO : un comment the below logic to redirect to Dashboard
+           <Route path="*"> 
             <Redirect to="/" />
-          </Route>
+          </Route> */}
         </Switch>
       </Layout>
     </Router>
