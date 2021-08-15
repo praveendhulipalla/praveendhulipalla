@@ -4,7 +4,6 @@ import Amplify from "aws-amplify";
 const { AES, enc } = require("crypto-js");
 const { decrypt, encrypt } = AES;
 
-const message = "Hi my friend";
 const key = "rocon#*34!32%";
 // const messageEncrypt = encrypt(COGNITO.APP_CLIENT_ID, key).toString();
 // const aesDecrypt = decrypt(messageEncrypt, key).toString(enc.Utf8);
