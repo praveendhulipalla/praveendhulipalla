@@ -5,6 +5,7 @@ import AuthContext from "../../store/auth-context";
 import { Toast } from "../../utils/notifications";
 import { Auth } from "aws-amplify";
 import classes from "./SignupForm.module.css";
+import request from "../../utils/axiosAPI";
 
 const LoginForm = (props) => {
   const [loading, setLoading] = useState(false);
@@ -36,6 +37,16 @@ const LoginForm = (props) => {
         expirationTime.toISOString(),
         signInResponse
       );
+      await request({
+        method: "POST",
+        url: "/users",
+        data: {
+          cognitoId: signInResponse.attributes.sub,
+          emailId: signInResponse.attributes.email,
+          userName: signInResponse.attributes.name,
+          roleID: 1, //userSession.accessToken.payload.scope,
+        },
+      });
       history.replace("/dashboard");
       Toast("Success!!", "Login Successfully", "success");
     } catch (error) {

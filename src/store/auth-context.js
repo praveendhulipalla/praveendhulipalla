@@ -39,6 +39,7 @@ const retrieveStoredToken = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("expirationTime");
       localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("accessToken");
     }
     return null;
   }
@@ -74,6 +75,7 @@ export const AuthContextProvider = (props) => {
     localStorage.removeItem("token");
     localStorage.removeItem("expirationTime");
     localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("accessToken");
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);
@@ -95,7 +97,10 @@ export const AuthContextProvider = (props) => {
         );
         localStorage.setItem("expirationTime", expirationTime.toISOString());
         localStorage.setItem("loggedInUser", JSON.stringify(data));
-
+        localStorage.setItem(
+          "accessToken",
+          data.signInUserSession.accessToken.jwtToken
+        );
         const remainingTime = calculateRemainingTime(
           expirationTime.toISOString()
         );
@@ -110,13 +115,14 @@ export const AuthContextProvider = (props) => {
     }
   }, [logoutHandler]);
 
-  const loginHandler = (accessTokentoken, expirationTime, loggedInUser) => {
-    setToken(JSON.stringify(accessTokentoken));
+  const loginHandler = (accessToken, expirationTime, loggedInUser) => {
+    setToken(JSON.stringify(accessToken));
     setLoggedInUser(JSON.stringify(loggedInUser));
-    setLoggedInRole(JSON.stringify(accessTokentoken.payload.scope));
-    localStorage.setItem("token", JSON.stringify(accessTokentoken));
+    setLoggedInRole(JSON.stringify(accessToken.payload.scope));
+    localStorage.setItem("token", JSON.stringify(accessToken));
     localStorage.setItem("expirationTime", expirationTime);
     localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+    localStorage.setItem("accessToken", accessToken.jwtToken);
 
     const remainingTime = calculateRemainingTime(expirationTime);
 

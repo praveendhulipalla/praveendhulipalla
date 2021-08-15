@@ -17,7 +17,8 @@
     "web-vitals": "^1.1.2",
     "react-avatar": "^3.10.0",
     "react-bootstrap-icons": "^1.5.0",
-    "crypto-js": "^4.0.0"
+    "crypto-js": "^4.0.0",
+    "axios": "^0.21.1"
   },
   "scripts": {
     "start": "react-scripts start",
