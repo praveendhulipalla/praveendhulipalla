@@ -27,7 +27,7 @@ const LoginForm = (props) => {
       let userSession = signInResponse.signInUserSession;
       console.log(signInResponse);
       const expirationTime = new Date(
-        new Date().getTime() + userSession.accessToken.payload.exp
+        userSession.accessToken.payload.exp * 1000
       );
 
       console.log(new Date() + " \t " + expirationTime);

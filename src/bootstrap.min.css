@@ -3035,10 +3035,25 @@ input[type="submit"].btn-block {
   margin-left: 0.255em;
   vertical-align: 0.255em;
   content: "";
-  border-top: 0.3em solid;
-  border-right: 0.3em solid transparent;
-  border-bottom: 0;
-  border-left: 0.3em solid transparent;
+  border: solid;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  /* changed dropdown style
+   border-top: 0.3em solid;
+   border-right: 0.3em solid transparent;
+   border-bottom: 0;
+   border-left: 0.3em solid transparent; 
+  To
+    border: solid;
+   border-width: 0 3px 3px 0;
+   display: inline-block;
+   padding: 3px;
+   transform: rotate(45deg);
+   -webkit-transform: rotate(45deg);
+  */
 }
 .dropdown-toggle:empty::after {
   margin-left: 0;
@@ -9524,3 +9539,29 @@ a.text-dark:hover {
   }
 }
 /*# sourceMappingURL=bootstrap.min.css.map */
+/* custom changes */
+
+.bg-third {
+  background-color: rgb(81, 199, 219) !important;
+}
+a.bg-third:focus,
+a.bg-third:hover,
+button.bg-third:focus,
+button.bg-third:hover {
+  background-color: #0062cc !important;
+}
+
+.badge-pink {
+  color: #fff;
+  background-color: deeppink;
+}
+a.badge-pink:focus,
+a.badge-pink:hover {
+  color: #fff;
+  background-color: #1d2124;
+}
+a.badge-pink.focus,
+a.badge-pink:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
+}

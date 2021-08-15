@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Auth } from "aws-amplify";
 
 let logoutTimer;
+let refreshTimer;
+
+const cognitoLogout = async () => {
+  return await Auth.signOut();
+};
 
 const AuthContext = React.createContext({
   token: null,
@@ -21,16 +27,19 @@ const calculateRemainingTime = (expirationTime) => {
 };
 
 const retrieveStoredToken = () => {
-  const storedToken = localStorage.getItem("token");
-  const storedExpirationDate = localStorage.getItem("expirationTime");
-  const storeLoggedInUser = localStorage.getItem("loggedInUser");
+  let storedToken = localStorage.getItem("token");
+  let storedExpirationDate = localStorage.getItem("expirationTime");
+  let storeLoggedInUser = localStorage.getItem("loggedInUser");
 
-  const remainingTime = calculateRemainingTime(storedExpirationDate);
+  let remainingTime = calculateRemainingTime(storedExpirationDate);
 
-  if (remainingTime <= 3600) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expirationTime");
-    localStorage.removeItem("loggedInUser");
+  if (remainingTime <= -30000) {
+    if (storedToken !== null && storedToken !== "") {
+      cognitoLogout();
+      localStorage.removeItem("token");
+      localStorage.removeItem("expirationTime");
+      localStorage.removeItem("loggedInUser");
+    }
     return null;
   }
 
@@ -42,8 +51,7 @@ const retrieveStoredToken = () => {
 };
 
 export const AuthContextProvider = (props) => {
-  const tokenData = retrieveStoredToken();
-
+  let tokenData = retrieveStoredToken();
   let initialToken;
   let initialLoggedInUser;
   let initialLoggedInRole;
@@ -53,13 +61,14 @@ export const AuthContextProvider = (props) => {
     initialLoggedInRole = JSON.parse(tokenData.token).payload.scope;
   }
 
-  const [token, setToken] = useState(initialToken);
+  let [token, setToken] = useState(initialToken);
 
-  const userIsLoggedIn = !!token;
-  const [loggedInRole, setLoggedInRole] = useState(initialLoggedInRole);
-  const [loggedInUser, setLoggedInUser] = useState(initialLoggedInUser);
+  let userIsLoggedIn = !!token;
+  let [loggedInRole, setLoggedInRole] = useState(initialLoggedInRole);
+  let [loggedInUser, setLoggedInUser] = useState(initialLoggedInUser);
 
   const logoutHandler = useCallback(() => {
+    cognitoLogout();
     setToken(null);
     setLoggedInUser(null);
     localStorage.removeItem("token");
@@ -71,6 +80,36 @@ export const AuthContextProvider = (props) => {
     }
   }, []);
 
+  const checkForReFreshToken = useCallback(async () => {
+    try {
+      let data = await Auth.currentAuthenticatedUser();
+      console.log("checkForReFreshToken :: " + data);
+      if (data != null) {
+        const expirationTime = new Date(
+          data.signInUserSession.accessToken.payload.exp * 1000
+        );
+
+        localStorage.setItem(
+          "token",
+          JSON.stringify(data.signInUserSession.accessToken)
+        );
+        localStorage.setItem("expirationTime", expirationTime.toISOString());
+        localStorage.setItem("loggedInUser", JSON.stringify(data));
+
+        const remainingTime = calculateRemainingTime(
+          expirationTime.toISOString()
+        );
+        clearTimeout(refreshTimer);
+        refreshTimer = setTimeout(checkForReFreshToken, remainingTime);
+        clearTimeout(logoutTimer);
+        let logoutTimerCal = remainingTime + 30000;
+        logoutTimer = setTimeout(logoutHandler, logoutTimerCal);
+      }
+    } catch (e) {
+      console.log("checkForReFreshToken Exception: " + e);
+    }
+  }, [logoutHandler]);
+
   const loginHandler = (accessTokentoken, expirationTime, loggedInUser) => {
     setToken(JSON.stringify(accessTokentoken));
     setLoggedInUser(JSON.stringify(loggedInUser));
@@ -81,17 +120,27 @@ export const AuthContextProvider = (props) => {
 
     const remainingTime = calculateRemainingTime(expirationTime);
 
-    logoutTimer = setTimeout(logoutHandler, remainingTime);
+    refreshTimer = setTimeout(checkForReFreshToken, remainingTime);
+    let logoutTimerCal = remainingTime + 30000;
+    logoutTimer = setTimeout(logoutHandler, logoutTimerCal);
   };
 
   useEffect(() => {
     if (tokenData) {
-      console.log("duration" + tokenData.duration);
-      logoutTimer = setTimeout(logoutHandler, tokenData.duration);
-    }
-  }, [tokenData, logoutHandler]);
+      let logoutTimerCal = tokenData.duration + 30000;
 
-  const contextValue = {
+      if (logoutTimer) {
+        clearTimeout(logoutTimer);
+      }
+      if (refreshTimer) {
+        clearTimeout(refreshTimer);
+      }
+      refreshTimer = setTimeout(checkForReFreshToken, tokenData.duration);
+      logoutTimer = setTimeout(logoutHandler, logoutTimerCal);
+    }
+  }, [tokenData, logoutHandler, checkForReFreshToken]);
+
+  let contextValue = {
     token: token !== undefined ? JSON.parse(token) : token,
     isLoggedIn: userIsLoggedIn,
     currentUser:

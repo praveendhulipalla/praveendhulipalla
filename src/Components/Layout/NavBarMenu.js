@@ -1,11 +1,19 @@
 import { useContext } from "react";
 import classes from "./NavBarMenu.module.css";
-import { Navbar, Nav, NavDropdown, Form, FormControl } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  NavDropdown,
+  Form,
+  FormControl,
+  Badge,
+} from "react-bootstrap";
 import { Toast } from "../../utils/notifications";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import Avatar from "react-avatar";
+import { Bell } from "react-bootstrap-icons";
 
 const NavBarMenu = () => {
   const history = useHistory();
@@ -19,10 +27,9 @@ const NavBarMenu = () => {
   if (isLoggedIn === true && authCtx.currentUser) {
     userName = authCtx.currentUser.attributes.name;
     navColor = "#50c7db !important";
-    navBg = "primary";
+    navBg = "third";
   }
-  console.log(history.location.pathname);
-  console.log(history);
+
   if (history.location.pathname === "/signup") {
     isSignup = true;
   }
@@ -71,6 +78,15 @@ const NavBarMenu = () => {
             <Nav.Link href="#pricing">ADD-ONS</Nav.Link>
             <Nav.Link href="#pricing">GET-HELP</Nav.Link>
             <button className={classes.button}>+ NEW SITE</button>
+            <Nav.Link>
+              <Bell size="25px"></Bell>
+              <Badge
+                variant="light"
+                className="ml-n2 rounded-circle badge-pink"
+              >
+                {"9"}
+              </Badge>
+            </Nav.Link>
             <NavDropdown
               title={
                 <Avatar
