@@ -1,14 +1,16 @@
 import React from 'react';
 import CheckIcon from './CheckIcon';
 
-import classes from './SelectButton.module.css';
+import './SelectButton.module.css';
+
 
 const Selectbutton = (props) => {
+
     return (
-        <button className={classes.button} >
+        <button className="buttonenable">
           <span>{props.displayText}</span>
-          <CheckIcon className={classes.arrowdown}/>
+          <CheckIcon/>
         </button>
-)};
+    )};
 
 export default Selectbutton

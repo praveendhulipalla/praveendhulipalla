@@ -2,32 +2,34 @@ import React from "react";
 
 import classes from "./HeaderButton.module.css";
 import { Toast } from "../../utils/notifications";
+import { Link, useHistory } from "react-router-dom";
 
 //let job = "test-rocon-build";
 //let inputName = "roconinput01";
 
 //const [didSubmit, setDidSubmit] = useState(false);
 const TriggerBuild = () => {
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify({
-      jobName: "test-rocon-build",
-      buildParams: {
-        input1: "roconinput01",
-      },
-    }),
-  };
-  fetch("http://localhost:8080/rocon/jenkins/job/build", requestOptions);
-  //.then(response => response.json())
-  //.then(data => this.setState({ postId: data.id }));
+  
+  // const requestOptions = {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "Access-Control-Allow-Origin": "*",
+  //   },
+  //   body: JSON.stringify({
+  //     jobName: "test-rocon-build",
+  //     buildParams: {
+  //       input1: "roconinput01",
+  //     },
+  //   }),
+  // };
+  // fetch("http://localhost:8080/rocon/jenkins/job/build", requestOptions);
+  // //.then(response => response.json())
+  // //.then(data => this.setState({ postId: data.id }));
 
-  //fetch('http://localhost:8080/rocon/jenkins/hello');
+  // //fetch('http://localhost:8080/rocon/jenkins/hello');
 
-  Toast("Success!!", "Triggered Successfully", "success");
+  // Toast("Success!!", "Triggered Successfully", "success");
   // setDidSubmit(true);
 };
 
@@ -41,9 +43,12 @@ const TriggerBuild = () => {
         })
       }]);*/
 
-const HeaderCartButton = (props) => {
+
+const HeaderCartButton = () => {
+  const history = useHistory();
+
   return (
-    <button className={classes.button} onClick={TriggerBuild}>
+    <button className={classes.button} onClick={() => history.push('/displayCreateSite')}>
       <span>CREATE A NEW SITE</span>
     </button>
   );

@@ -2,11 +2,11 @@ import React, { Fragment, useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import HeaderButton from "./HeaderButton";
 import classes from "./Header.module.css";
-
+import { Link } from "react-router-dom";
 const Header = (props) => {
   const authCtx = useContext(AuthContext);
 
-  return (
+    return (
     <Fragment>
       <div className={classes.headercss}>
         <div className={classes.circle}>
@@ -25,7 +25,8 @@ const Header = (props) => {
           </p>
         </div>
 
-        <HeaderButton onClick={props.onShowCart} />
+        <HeaderButton />
+        
       </div>
     </Fragment>
   );

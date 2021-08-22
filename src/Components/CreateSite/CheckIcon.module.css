@@ -1,0 +1,11 @@
+.checkmarkstyle {
+    position:absolute;
+    top:0px;
+    height:30px;
+    width:30px;
+    right: 0px;
+    color: white; 
+    padding-left: 8px;
+    padding-bottom: 11px;
+    background: linear-gradient(to top right, #fff 2%, #fff 48%, rgb(80, 197, 219) 0%, rgb(80, 197, 219) 100%);
+}

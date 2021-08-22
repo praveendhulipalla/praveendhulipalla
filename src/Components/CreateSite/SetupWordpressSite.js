@@ -12,11 +12,11 @@ const SetupWordpressSite = (props) => {
         <div className={classes.stripeddiv}>
           <div style={{ marginTop: "1rem", display: "flex" }}>
             <div className={classes.circle}>2</div>
-            <div>Setup your WordPress Site</div>
+            <div className={classes.textstyle}>Setup your WordPress Site</div>
           </div>
         </div>
 
-        <div>
+        <div style={{ marginTop:"0.5em" }}>
           <h5>Enter Site Details</h5>
 
           <div>
