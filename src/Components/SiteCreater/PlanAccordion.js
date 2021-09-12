@@ -14,8 +14,8 @@ const PlanAccordion = () => {
   const getPlans = async () => {
     //const response = await fetch('http://localhost:8080/rocon/jenkins/hello');
     //setPlans(response.data.data);
-      window.alert("Loading plans :: ");
-      await request({
+      //window.alert("Loading plans :: ");
+      /*await request({
           method: "GET",
           url: "/plans/7"
           
@@ -27,7 +27,7 @@ const PlanAccordion = () => {
           //dispatch({ type: AUTH_FAILED });
           //dispatch({ type: ERROR, payload: error.data.error.message });
         });;
-      
+      */
     
 
     const response = [

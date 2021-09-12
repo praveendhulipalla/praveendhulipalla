@@ -37,16 +37,16 @@ const LoginForm = (props) => {
         expirationTime.toISOString(),
         signInResponse
       );
-      await request({
-        method: "POST",
-        url: "/users",
-        data: {
-          cognitoId: signInResponse.attributes.sub,
-          emailId: signInResponse.attributes.email,
-          userName: signInResponse.attributes.name,
-          roleID: 1, //userSession.accessToken.payload.scope,
-        },
-      });
+      // await request({
+      //   method: "POST",
+      //   url: "/users",
+      //   data: {
+      //     cognitoId: signInResponse.attributes.sub,
+      //     emailId: signInResponse.attributes.email,
+      //     userName: signInResponse.attributes.name,
+      //     roleID: 1, //userSession.accessToken.payload.scope,
+      //   },
+      // });
       history.replace("/dashboard");
       Toast("Success!!", "Login Successfully", "success");
     } catch (error) {

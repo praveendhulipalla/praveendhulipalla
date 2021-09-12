@@ -1,0 +1,22 @@
+.accordion{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 0.3rem;
+    background-color: red;
+}
+
+.card-header{
+    display: flex;
+    justify-content: space between;
+    cursor: pointer;
+}
+
+.PlanAccordion{
+    background-color: #26a69a;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.card{
+    border-radius: 0px !important;
+}

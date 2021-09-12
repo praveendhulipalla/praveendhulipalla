@@ -8,6 +8,7 @@ import Login from "./Pages/Login";
 import PrivateRoute from "./Components/Helpers/PrivateRoute";
 import PublicRoute from "./Components/Helpers/PublicRoute";
 import "./Components/Amplify/AmplifySettings";
+import CreateSitePage from "./Pages/CreateSitePage";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           />
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact path="/displayCreateSite" component={CreateSitePage} />
           {/*
             * TODO : un comment the below logic to redirect to Dashboard
            <Route path="*"> 
@@ -43,6 +45,7 @@ function App() {
         </Switch>
       </Layout>
     </Router>
+
   );
 }
 

@@ -1,14 +1,14 @@
 import React from "react";
 
 import { Container, Row, Col } from "react-bootstrap";
-import CreateSite from "../CreateSite/CreateSite";
+import SiteCreater from "../SiteCreater/SiteCreater";
 
 const GridLayout = (props) => {
   return (
     <Container style={{ width: "60%" }}>
       <Row>
         <Col>
-          <CreateSite />
+          <SiteCreater />
         </Col>
       </Row>
     </Container>

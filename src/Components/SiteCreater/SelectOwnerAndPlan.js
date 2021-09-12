@@ -1,6 +1,6 @@
 import React from "react";
 
-import classes from "./SelectOwnerPlan.module.css";
+import classes from "./SelectOwnerAndPlan.module.css";
 import {
   Form,
   Row,
@@ -8,22 +8,13 @@ import {
   
 } from "react-bootstrap";
 import PlanAccordion from "./PlanAccordion";
-import NestedPlansList from "./NestedPlansList";
+import NestedPlansList from "./NestedPlansList"
 
 const SelectOwnerPlan = (props) => {
   return (
     <div>
       <div>
-        <Form.Row>
-          <Form.Group as={Col}>
-            <div className={classes.divdata}>
-              <div className={classes.circle}>1</div>
-              <div style={{ fontWeight: "bold", marginLeft: "7px" }}>
-                Select owner and plan
-              </div>
-            </div>
-          </Form.Group>
-        </Form.Row>
+        
         <Form.Row>
           <Form.Group>
             <div

@@ -77,7 +77,7 @@ const NavBarMenu = () => {
             </NavDropdown>
             <Nav.Link href="#pricing">ADD-ONS</Nav.Link>
             <Nav.Link href="#pricing">GET-HELP</Nav.Link>
-            <button className={classes.button}>+ NEW SITE</button>
+            <button className={classes.button} onClick={() => history.push('/displayCreateSite')}>+ NEW SITE</button>
             <Nav.Link>
               <Bell size="25px"></Bell>
               <Badge

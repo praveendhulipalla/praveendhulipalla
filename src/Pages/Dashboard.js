@@ -1,14 +1,13 @@
-// import Header from "../Components/Dashboard/Header";
-import GridLayout from "../Components/Layout/GridLayout";
+import Header from "../Components/Dashboard/Header";
 
-const Daashboard = (props) => {
-  //return <Header {...props} />;
+const Daashboard = () => {
+  
   return (
     <div style={{ backgroundColor: "rgb(247, 246, 246)" }}>
-      <GridLayout />
+      <Header />
     </div>
   );
-  //return <GridLayout />;
+  
 };
 
 export default Daashboard;
