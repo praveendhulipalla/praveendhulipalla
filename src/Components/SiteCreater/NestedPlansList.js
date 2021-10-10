@@ -7,12 +7,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import BusinessIcon from '@material-ui/icons/Business';
 
@@ -35,6 +32,7 @@ class NestedList extends React.Component {
   handleClick = () => {
     this.setState(state => ({ open: !state.open }));
   };
+  
 
   render() {
     const { classes } = this.props;
@@ -45,14 +43,14 @@ class NestedList extends React.Component {
         subheader={<ListSubheader component="div">Select Plan</ListSubheader>}
         className={classes.root}
       >
-       <div></div>   
+       <div>   
         <ListItem button>
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
           <ListItemText inset primary="Individual Plans" />
         </ListItem>
-        
+        </div>
         <div>
         <ListItem button onClick={this.handleClick}>
           <ListItemIcon>

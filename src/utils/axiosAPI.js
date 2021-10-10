@@ -9,9 +9,13 @@ const baseURL = "http://localhost:8080/rocon"; //process.env.REACT_BACK_END_API_
 let token_info = "Bearer " + localStorage.getItem("accessToken");
 let client = axios.create({
   baseURL: baseURL,
+  withCredentials: false,
   headers: {
     "Access-Control-Allow-Origin": "*",
     Authorization: "Bearer " + localStorage.getItem("accessToken"),
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Methods": "GET, OPTIONS, POST, PUT",
+    "Access-Control-Allow-Credentials": "true",
   },
 });
 

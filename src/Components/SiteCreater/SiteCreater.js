@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -10,7 +11,9 @@ import Typography from '@material-ui/core/Typography';
 
 import SelectOwnerAndPlan from "./SelectOwnerAndPlan";
 import SetupWordpressSite from "./SetupWordpressSite";
-import CreateWordpressUser from "../CreateSite/CreateWordpressUser";
+import CreateWordpressUser from "./CreateWordpressUser";
+import { Toast } from "../../utils/notifications";
+import request from "../../utils/axiosAPI";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,30 +31,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 function getSteps() {
   return ['Select owner and plan', 'Setup your WordPress site', 'Create your WordPress user'];
-}
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <SelectOwnerAndPlan />;
-    case 1:
-      return <SetupWordpressSite />;
-    case 2:
-      return <CreateWordpressUser />;
-    default:
-      return 'Unknown step';
-  }
 }
 
 export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const [tempSiteName, setTempSiteName] = useState('');
+  //const [siteName, setSiteName] = useState('');
+  const [wordPressUserName, setWordPressUserName] = useState('');
+
+  const getStepContent = (step) => {
+
+    
+  
+    switch (step) {
+      case 0:
+        return <SelectOwnerAndPlan />;
+      case 1:
+        return <SetupWordpressSite tempSiteName={tempSiteName} setTempSiteName={setTempSiteName} />;
+      case 2:
+        return <CreateWordpressUser wordPressUserName={wordPressUserName} setWordPressUserName={setWordPressUserName} />;
+      default:
+        return 'Unknown step';
+    }
+  }
 
   const handleNext = () => {
+
+    if(activeStep === 1 && tempSiteName.trim()===''){
+      window.alert("Enter mandatory text value");
+      return true;
+    }
+
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if(activeStep === steps.length-1){
+      triggerBuild();
+    }
+    
   };
 
   const handleBack = () => {
@@ -61,6 +82,27 @@ export default function VerticalLinearStepper() {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  const triggerBuild = async () => {
+    await request({
+        method: "POST",
+        url: "/jenkins/job/build",
+        data: {
+          jobName: "Buildsite",
+          buildParams: {
+            SERVICENAMEPREFIX: tempSiteName,//"myroconapp",
+          },
+        },
+      }).then(response => {
+        Toast("Success!!", "Build is Triggered Successfully",response.statusMsg, "success");
+      })
+      .catch(error => {
+        Toast("Error!!", "There is an Error in the process", "danger");
+        setActiveStep(2);
+      });;
+    
+      
+  }
 
   return (
     <div className={classes.root}>
@@ -95,9 +137,9 @@ export default function VerticalLinearStepper() {
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
+          <Typography color="green">Build is triggered successfully</Typography>
           <Button onClick={handleReset} className={classes.button}>
-            Reset
+            Reset Data
           </Button>
         </Paper>
       )}

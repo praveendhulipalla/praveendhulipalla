@@ -1,22 +1,14 @@
 import React from "react";
 
 import classes from "./SelectOwnerAndPlan.module.css";
-import {
-  Form,
-  Row,
-  Col,
-  
-} from "react-bootstrap";
 import PlanAccordion from "./PlanAccordion";
-import NestedPlansList from "./NestedPlansList"
 
 const SelectOwnerPlan = (props) => {
   return (
     <div>
       <div>
         
-        <Form.Row>
-          <Form.Group>
+        
             <div
               style={{
                 fontWeight: "bold",
@@ -28,16 +20,13 @@ const SelectOwnerPlan = (props) => {
             >
               Who will own this site?
             </div>
-          </Form.Group>
-        </Form.Row>
+          
 
-        <Row>
-          <Col>
-            <NestedPlansList />
-          </Col>
-        </Row>
+        
+            
+          
       </div>
-
+<div><PlanAccordion /></div>
       <div>
         <div className={classes.divdata}>
           <div

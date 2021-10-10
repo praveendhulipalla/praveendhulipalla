@@ -1,44 +1,77 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import { createTheme } from '@material-ui/core';
+import DomainIcon from '@mui/icons-material/Domain';
 
-import { FormControl } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
 
+const SetupWordpressSite = ({siteName, setSiteName,tempSiteName,setTempSiteName}) => {
 
-const SetupWordpressSite = (props) => {
+  
+  //const [domain, setDomain] = useState('');
+  const theme = createTheme({
+    overrides: {
+      MuiInputLabel: {
+        root: {
+          color: "green",
+          "&$focused": {
+            color: "blue"
+          }
+        }
+      }
+    }
+  });
+
   return (
-    <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Enter site details
-      </Typography>
-      
-        <Grid item xs={12} md={6}>
-          <TextField required id="cardName" label=" Site name" fullWidth autoComplete="cc-name" />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cardNumber"
-            label="Temporary domain"
-            fullWidth
-            autoComplete="cc-number"
+    <Box sx={{ display: "block" }}>
+      <div>
+        <span>
+        <Typography variant="h6" gutterBottom>
+          Enter site details
+        </Typography>
+        </span>
+      </div>
+      <div>
+        <FormControl sx={{ m: 0, mt: 1}} variant="standard">
+          <InputLabel htmlFor="input-with-icon-adornment">Site name</InputLabel>
+          <Input
+            id="input-with-icon-adornment"
+            endAdornment={
+              <InputAdornment position="end">
+                <DomainIcon />
+              </InputAdornment>
+            }
           />
-           <FormControl
-                    type="email"
-                    prefix="@flywheelsites.com"
-                    placeholder="RandomelyGeneratedName"
-                    style={{ borderRight: "none" }}
-                  />
-                 
-        </Grid>
-        
-        
-      
-    </React.Fragment>
+        </FormControl>
+      </div>
+      <div>
+        <FormControl sx={{ m: 0, mt: 1 }} variant="standard">
+          <InputLabel htmlFor="input-with-icon-adornment">
+            Temporary Domain
+          </InputLabel>
+          <Input
+            id="input-with-icon-adornment"
+            value={tempSiteName}
+            onChange={(event) => {
+              setTempSiteName(event.target.value);
+            }}
+            endAdornment={
+              <InputAdornment
+                  position="end"
+                  
+                >
+                  @roconpass.com
+                </InputAdornment>
+            }
+          />
+        </FormControl>
+      </div>
+    </Box>
   );
 };
 

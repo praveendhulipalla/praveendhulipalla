@@ -1,134 +1,61 @@
 import React, { useEffect, useState } from "react";
-
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { useHistory } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 import request from "../../utils/axiosAPI";
 
+const useStyles = makeStyles({
+  "@global": {
+    ".MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label": {
+      backgroundColor: "white"
+    },
+    ".MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label:hover, .MuiTreeItem-root.Mui-selected:focus > .MuiTreeItem-content .MuiTreeItem-label": {
+      backgroundColor: "rgb(81, 187, 122)",
+      color:"white"
+    }
+  }
+});
 
 const PlanAccordion = () => {
   const [indPlansData, setIndPlansData] = useState([]);
   const [organizationsData, setOrganizationsData] = useState([]);
+  const history = useHistory();
 
   const getPlans = async () => {
-    //const response = await fetch('http://localhost:8080/rocon/jenkins/hello');
-    //setPlans(response.data.data);
-      //window.alert("Loading plans :: ");
-      /*await request({
+      await request({
           method: "GET",
-          url: "/plans/7"
-          
+          url: "/plans/all/token"
         }).then(response => {
-          window.alert("Response is :: "+response);
-          //dispatch(something(response));
+          
+          const individualPlansData = JSON.stringify(response.individualPlans);
+          const indPlansParsedData = JSON.parse(individualPlansData);
+
+          const orgPlansData = JSON.stringify(response.orgPlans);
+          const orgPlansParsedString = JSON.parse(orgPlansData);
+          
+          setIndPlansData(indPlansParsedData);
+          setOrganizationsData(orgPlansParsedString);
+          
         })
         .catch(error => {
-          //dispatch({ type: AUTH_FAILED });
-          //dispatch({ type: ERROR, payload: error.data.error.message });
-        });;
-      */
-    
-
-    const response = [
-      {
-        id: "0",
-        name: "Individual Plans",
-        children: [
-              {
-                id: 'P1',
-                name: 'Ind Plan One',
-              },
-              {
-                id: 'P2',
-                name: 'Ind Plan Two',
-              },
-              {
-                id: 'P3',
-                name: 'Ind Plan Three',
-              }
-              // …
-            ]
           
-      }
-    ];
-
-    setIndPlansData(response);
-
-    setOrganizationsData([
-      {id: 'root',
-      name: 'Organizations',
-      children: [
-        {
-          id: '1',
-          name: 'First Organization',
-          children: [
-            {
-              id: 'P4',
-              name: 'Plan one',
-            },
-            {
-              id: 'P5',
-              name: 'Plan Two',
-            },
-            {
-              id: 'P6',
-              name: 'Plan Three',
-            }
-            // …
-          ]
-        },
-        {
-          id: '2',
-          name: 'Second Oganizaton',
-          children: [
-            {
-              id: 'P7',
-              name: 'Plan one',
-            },
-            {
-              id: 'P8',
-              name: 'Plan Two',
-            },
-            {
-              id: 'P9',
-              name: 'Plan Three',
-            }
-            // …
-          ]
-        },
-        {
-          id: '3',
-          name: 'Third Organization',
-          children: [
-            {
-              id: 'P10',
-              name: 'Plan one',
-            },
-            {
-              id: 'P11',
-              name: 'Plan Two',
-            },
-            {
-              id: 'P12',
-              name: 'Plan Three',
-            }
-          ]
-        }
-      ],
-      }]);
+        });;
     
   };
-
+  
   useEffect(() => {
     getPlans();
   }, []);
 
   const getTreeItemsFromData = treeItems => {
     return treeItems.map(treeItemData => {
+      console.log(treeItemData);
       let children = undefined;
       if (treeItemData.children && treeItemData.children.length > 0) {
-        children = getTreeItemsFromData(treeItemData.children);
+          children = getTreeItemsFromData(treeItemData.children);
       }
       return (
         <TreeItem
@@ -142,13 +69,13 @@ const PlanAccordion = () => {
   };
 
   const DataTreeView = ({ treeItems, orgItems }) => {
+
+    const classes = useStyles();
     return (
       <TreeView
-      
         aria-label="controlled"
         defaultCollapseIcon={<ExpandMoreIcon />}
-        defaultExpandIcon={<ChevronRightIcon />}
-        
+        defaultExpandIcon={<ChevronRightIcon /> }
       >
         {getTreeItemsFromData(treeItems)}
         {getTreeItemsFromData(orgItems)}
@@ -158,11 +85,11 @@ const PlanAccordion = () => {
 
   return (
     <div>
-      <div style={{ backgroundColor: "rgb(247, 246, 246)", fontFamily:"cursive", color:"sienna" }}>
+      <div style={{ backgroundColor: "theme.palette.background.paper", fontFamily:"cursive", color:"darkblue" }}>
         <DataTreeView treeItems={organizationsData} orgItems={indPlansData} />
       </div>
       <div>
-        <button
+        <button onClick={() => history.push('/displayPlans')}
                   style={{
                     borderRadius: "15px",
                     border: "none",
@@ -171,7 +98,7 @@ const PlanAccordion = () => {
                     height: "26px",
                     backgroundColor: "rgb(81, 187, 122)",
                     color: "white",
-                    marginTop: "0.5rem"
+                    marginTop: "1rem"
                   }}
                 >Create Plan</button>
       </div>
